@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Course Goals</h1>
+    </header>
+    <section id="user-goals">
+      <h2>My course goals</h2>
+      <input type="text" v-model="enteredGoal" />
+      <button @click="addGoal" >Add Goal</button>
+      <p v-if="goals.length === 0" >No goals have been added yet - please start adding some!</p>
+      <!-- The directive v-if is used to conditionally render a block. The block will only be rendered
+         if the directive's expression returns a truthy value.-->
+      <!-- Alternatively one can use the v-show directive
+      <p v-show="goals.length === 0" >No goals have been added yet - please start adding some!</p>
+      -->
+      <!--The difference is that an element with v-show will always be rendered and remain in the DOM;
+         v-show only toggles the display CSS property of the element.
+          show doesn't support the <template> element, nor does it work with v-else-->
+      <ul v-else>
+        <!-- A v-else element must immediately follow a v-if or a v-else-if element
+           - otherwise it will not be recognized.-->
+           <!--
+            <ul v-show="goals.length > 0">
+           -->
+        <li v-for="(goal, index) in goals" :key="goal" @click="removeGoal(index)">{{ index +1 }}. {{ goal }}</li>
+        <!-- We can use the v-for directive to render a list of items based on an array.
+           The v-for directive requires a special syntax in the form of goal in goals, 
+           where goals is the source data array and goal is an alias for the array element being iterated on
+        -->
+        <!--You can also use v-for to iterate through the properties of an object. The iteration order will
+           be based on the result of calling Object.keys() on the object:-->
+           <!--
+            <li v-for="(key, item) in myObject" >{{{ item }}: {{key}}</li>
+           -->
+        <!--
+            <li v-for="num in 10" >{{ num }}</li>
+        -->
+      </ul>
+    </section>
+  </body>
+</html>
